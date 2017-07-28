@@ -8,6 +8,9 @@ import { Recipe } from '../recipe.model';
   styleUrls: ['./recipe-list.component.css']
 })
 export class RecipeListComponent implements OnInit {
+
+  // @To-Do: Add loggerService to log the instantiation of each components
+
   recipes: Recipe[] = [
     new Recipe('A test recipe', 'This is simply a test', 'https://cdn.pixabay.com/photo/2015/03/24/00/28/cuisine-686905_960_720.jpg'),
     new Recipe('A test recipe', 'This is simply a test', 'https://cdn.pixabay.com/photo/2015/03/24/00/28/cuisine-686905_960_720.jpg'),
