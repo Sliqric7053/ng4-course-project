@@ -8,9 +8,7 @@ import { Recipe } from '../recipes/recipe.model';
   styleUrls: ['./shopping-list.component.css']
 })
 export class ShoppingListComponent implements OnInit {
-  recipes: Recipe[] = [
-    new Recipe('A test recipe', 'This is simply a test', 'https://cdn.pixabay.com/photo/2015/03/24/00/28/cuisine-686905_960_720.jpg')
-  ];
+  ingredients = [];
 
   constructor() { }
 
