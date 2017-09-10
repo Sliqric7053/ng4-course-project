@@ -1,11 +1,8 @@
-import { EventEmitter } from '@angular/core';
-
-import { Recipe } from './recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
+import { Recipe } from './recipe.model';
 
 export class RecipeService {
       // @To-Do: Add loggerService to log the instantiation of each components
- recipeSelected = new EventEmitter<Recipe>();
 
  private recipes: Recipe[] = [
     new Recipe('Spicy Wrap', 'Try this casual hand-held-food entertaining idea, with..',
