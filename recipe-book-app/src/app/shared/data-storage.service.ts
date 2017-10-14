@@ -14,13 +14,13 @@ export class DataStorageService {
     storeRecipes() {
         const token = this.authService.getToken();
         // tslint:disable-next-line:max-line-length
-        return this.http.put('https://ng4-recipe-book-3d9d9.firebaseio.com/store-recipes.json?auth=' + token, this.recipeService.getRecipes());
+        return this.http.put('https://ng4-recipe-book-3d9d9.firebaseio.com/recipes.json?auth=' + token, this.recipeService.getRecipes());
     }
 
     fetchRecipes() {
         const token = this.authService.getToken();
 
-         this.http.get('https://ng4-recipe-book-3d9d9.firebaseio.com/get-recipes.json?auth=' + token)
+         this.http.get('https://ng4-recipe-book-3d9d9.firebaseio.com/recipes.json?auth=' + token)
          .map(
             (response: Response) => {
                 const recipeData: Recipe[] = response.json();
