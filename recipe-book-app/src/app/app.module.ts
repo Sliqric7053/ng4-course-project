@@ -4,9 +4,8 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { HomepageComponent } from './homepage/homepage.component';
 
+import { CoreModule } from 'app/core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
@@ -23,8 +22,6 @@ import { AuthGuard } from 'app/auth/auth-guard.service';
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    HomepageComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +31,7 @@ import { AuthGuard } from 'app/auth/auth-guard.service';
     SharedModule,
     ShoppingListModule,
     AuthModule,
+    CoreModule
   ],
   providers: [RecipeService, ShoppingListService, DataStorageService, AuthService, AuthGuard],
   bootstrap: [AppComponent]

@@ -1,11 +1,11 @@
-import { AuthService } from '../auth/auth.service';
-import { Response } from '@angular/http';
 import { Component } from '@angular/core';
-
-import { RecipeService } from '../recipes/recipe.service';
-import { DataStorageService } from '../shared/data-storage.service';
+import { Response } from '@angular/http';
 
 import { Recipe } from 'app/recipes/recipe.model';
+
+import { DataStorageService } from 'app/shared/data-storage.service';
+import { RecipeService } from 'app/recipes/recipe.service';
+import { AuthService } from 'app/auth/auth.service';
 
 @Component({
     selector: 'app-header',
