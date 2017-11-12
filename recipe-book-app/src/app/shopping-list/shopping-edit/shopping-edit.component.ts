@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import * as jsPDF from 'jsPDF';
 
 import { Subscription } from 'rxjs/Rx';
 
@@ -20,7 +21,8 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   itemEditedIndex: number;
   editedItem: Ingredient;
 
-  constructor(private shoppingListService: ShoppingListService) { }
+  constructor(
+    private shoppingListService: ShoppingListService) { }
 
   ngOnInit() {
    this.subscription = this.shoppingListService.startedEditing.subscribe(
@@ -60,6 +62,25 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
     this.shoppingListService.deleteIngredient(this.itemEditedIndex);
     this.onClear();
   }
+
+  onDownload() {
+    const doc = new jsPDF();
+    const elementHandler = {
+      '#ignorePDF': function (element, renderer) {
+        return true;
+      }
+    };
+    doc.setTextColor(100);
+    const source = window.document.getElementsByTagName('body')[0];
+    doc.fromHTML(
+      source,
+      15,
+      15,
+      {
+        'elementHandlers': elementHandler
+      });
+      doc.save('Recipe-list.pdf');
+    }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
