@@ -23,7 +23,7 @@
           pattern="^[1-9][0-9]*$"
           >
         </div>
-        <div class="row">
+        <div id="ignorePDF" class="row">
           <div class="col-xs-12">
             <button class="btn btn-success" 
             type="submit"
@@ -34,6 +34,8 @@
             type="button" (click)="onDelete()">Delete</button>
             <button class="btn btn-primary" 
             type="button" (click)="onClear()">Clear</button>
+            <button class="btn btn-primary" 
+            type="button" (click)="onDownload()">Download</button>
           </div>
         </div>
       </div>

@@ -7,6 +7,7 @@ import { Ingredient } from '../../shared/ingredient.model';
 
 import { ShoppingListService } from '../../shopping-list/shopping-list.service';
 import { RecipeService } from '../recipe.service';
+import { AuthService } from 'app/auth/auth.service';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -20,7 +21,8 @@ export class RecipeDetailComponent implements OnInit {
   constructor(private  shoppingListService: ShoppingListService,
     private recipeService: RecipeService,
     private route: ActivatedRoute,
-    private router: Router) {}
+    private router: Router,
+    private authService: AuthService) {}
 
   ngOnInit() {
     this.route.params.
@@ -39,7 +41,11 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onEditRecipe() {
-    this.router.navigate(['edit'], {relativeTo: this.route});
+    if (this.authService.token != null) {
+      this.router.navigate(['edit'], {relativeTo: this.route});
+    } else {
+      window.alert('You must be signed in to edit a recipe!');
+    }
   }
 
   onDeleteRecipe() {
