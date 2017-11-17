@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Response } from '@angular/http';
 
 import { Recipe } from '../../recipes/recipe.model';
 
@@ -19,9 +18,8 @@ export class  HeaderComponent {
     onSave() {
         this.dataStorageService.storeRecipes()
         .subscribe(
-            (response: Response) => {
-                const data = response.json();
-                console.log(data);
+            (response) => {
+                console.log(response);
             },
         (error) => console.log(error)
         );
