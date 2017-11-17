@@ -1,6 +1,6 @@
 import { AuthService } from '../auth/auth.service';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpRequest } from '@angular/common/http';
 
 import { RecipeService } from '../recipes/recipe.service';
 import { Recipe } from '../recipes/recipe.model';
@@ -14,11 +14,18 @@ export class DataStorageService {
     storeRecipes() {
         const token = this.authService.getToken();
 
-        return this.httpClient.put('https://ng4-recipe-book-3d9d9.firebaseio.com/recipes.json',
-        this.recipeService.getRecipes(), {
-            observe: 'body',
-            params: new HttpParams().set('auth', token)
+        // standard "put" request (doesnt not return upload/download progress)
+        // return this.httpClient.put('https://ng4-recipe-book-3d9d9.firebaseio.com/recipes.json',
+        // this.recipeService.getRecipes(), {
+        //     observe: 'body',
+        //     params: new HttpParams().set('auth', token)
+        // });
+
+        // bespoke "put" request => returns upload/download progress (loaded / total = progress bar)
+        const req = new HttpRequest('PUT', 'https://ng4-recipe-book-3d9d9.firebaseio.com/recipes.json', this.recipeService.getRecipes(), {
+            reportProgress: true, params: new HttpParams().set('auth', token)
         });
+        return this.httpClient.request(req);
     }
 
     fetchRecipes() {
@@ -26,7 +33,7 @@ export class DataStorageService {
 
          this.httpClient.get<Recipe[]>('https://ng4-recipe-book-3d9d9.firebaseio.com/recipes.json', {
             params: new HttpParams().set('auth', token)
-         }
+          }
         )
             .map(
                 (recipes) => {
