@@ -21,6 +21,7 @@ export class DataStorageService {
         //     params: new HttpParams().set('auth', token)
         // });
 
+
         // bespoke "put" request => returns upload/download progress (loaded / total = progress bar)
         const req = new HttpRequest('PUT', 'https://ng4-recipe-book-3d9d9.firebaseio.com/recipes.json', this.recipeService.getRecipes(), {
             reportProgress: true, params: new HttpParams().set('auth', token)
