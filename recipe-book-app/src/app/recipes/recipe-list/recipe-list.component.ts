@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
 import { AuthService } from 'app/auth/auth.service';
+import { Store } from '@ngrx/store';
+import * as shoppingListActions from '../../shopping-list/store/shopping-list.actions';
 
 @Component({
   selector: 'app-recipe-list',
@@ -15,10 +17,11 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   recipes: Recipe[];
   private subscription: Subscription;
 
-  constructor(private recipeService: RecipeService,
+  constructor(private store: Store<any>,
+              private recipeService: RecipeService,
               private router: Router,
-            private route: ActivatedRoute,
-          private authService: AuthService) { }
+              private route: ActivatedRoute,
+              private authService: AuthService) { }
 
   ngOnInit() {
     this.subscription = this.recipeService.recipesChanged
@@ -28,6 +31,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
       }
     );
     this.recipes = this.recipeService.getRecipes();
+    // this.store.dispatch(new shoppingListActions.ADD_INGREDIENTS;
   }
 
   onNewRecipe() {
