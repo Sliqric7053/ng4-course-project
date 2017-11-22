@@ -1,13 +1,16 @@
-import { Observable, Observer, Subject } from 'rxjs/Rx';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { Recipe } from '../recipe.model';
 import { Ingredient } from '../../shared/ingredient.model';
 
-import { ShoppingListService } from '../../shopping-list/shopping-list.service';
 import { RecipeService } from '../recipe.service';
 import { AuthService } from 'app/auth/auth.service';
+
+import { Observable, Observer, Subject } from 'rxjs/Rx';
+import { Store } from '@ngrx/store';
+
+import * as ShoppingListActions from '../../shopping-list/store/shopping-list.actions';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -18,7 +21,8 @@ export class RecipeDetailComponent implements OnInit {
   selectedItem: Recipe;
   id: number;
 
-  constructor(private  shoppingListService: ShoppingListService,
+  constructor(
+    private store: Store<any>,
     private recipeService: RecipeService,
     private route: ActivatedRoute,
     private router: Router,
@@ -35,9 +39,7 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onAddToShoppingList() {
-    this.selectedItem.ingredients.forEach(ingredient => {
-      this.shoppingListService.addIngredient(ingredient);
-    });
+      this.store.dispatch(new ShoppingListActions.AddIngredients(this.selectedItem.ingredients));
   }
 
   onEditRecipe() {
