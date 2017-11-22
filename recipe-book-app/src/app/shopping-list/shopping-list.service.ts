@@ -20,15 +20,10 @@ export class ShoppingListService {
           return this.ingredients.slice();
       }
 
-      addIngredient(newIngredient: Ingredient) {
-        this.ingredients.push(newIngredient);
-        this.ingredientChanged.next(this.ingredients.slice());
-      }
-
-      addIngredients(ingredients: Ingredient[]) {
-        this.ingredients.push(...ingredients);
-        this.ingredientChanged.next(this.ingredients.slice());
-      }
+      // addIngredient(newIngredient: Ingredient) {
+      //   this.ingredients.push(newIngredient);
+      //   this.ingredientChanged.next(this.ingredients.slice());
+      // } REPLACED BY: this.store.dispatch(new shoppingListActions.AddIngredient(newIngredient));
 
       updateIngredient(index: number, newIngredient: Ingredient) {
         this.ingredients[index] = newIngredient;
