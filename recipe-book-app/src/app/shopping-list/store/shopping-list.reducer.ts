@@ -35,24 +35,28 @@ switch (action.type) {
             ingredients: [...state.ingredients, ...action.payload]
         };
     case ShoppingListActions.UPDATE_INGREDIENT:
-    const ingredient = state.ingredients[action.payload.index];
+    const ingredient = state.ingredients[state.editedIngredietIndex];
     console.log('state.ingredients[action.payload.index]', ingredient);
     const updatedIngredient = {
         ...ingredient,
         ...action.payload.ingredient
     };
     const ingredients = [...state.ingredients];
-    ingredients[action.payload.index] = updatedIngredient;
+    ingredients[state.editedIngredietIndex] = updatedIngredient;
         return {
             ...state,
-            ingredients: ingredients
+            ingredients: ingredients,
+            editedIngredient: null,
+            editedIngredietIndex: -1
         };
     case ShoppingListActions.DELETE_INGREDIENT:
     const oldIngredients = [...state.ingredients];
-    oldIngredients.splice(action.payload, 1);
+    oldIngredients.splice(state.editedIngredietIndex   , 1);
         return {
             ...state,
-            ingredients: oldIngredients
+            ingredients: oldIngredients,
+            editedIngredient: null,
+            editedIngredietIndex: -1
         };
         case ShoppingListActions.START_EDIT:
         const editedIngredient = {...state.ingredients[action.payload]};
@@ -60,6 +64,12 @@ switch (action.type) {
             ...state,
             editedIngredient: editedIngredient,
             editedIngredietIndex: action.payload
+        };
+        case ShoppingListActions.STOP_EDIT:
+        return {
+            ...state,
+            editedIngredient: null,
+            editedIngredietIndex: -1
         };
     default:
         return state;
