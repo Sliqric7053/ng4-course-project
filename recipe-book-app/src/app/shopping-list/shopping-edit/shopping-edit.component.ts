@@ -18,7 +18,6 @@ import * as fromShoppingList from '../store/shopping-list.reducer';
 })
 export class ShoppingEditComponent implements OnInit, OnDestroy {
   @ViewChild('f') slForm: NgForm;
-
   subscription: Subscription;
   editingMode = false;
   // itemEditedIndex: number;
@@ -103,6 +102,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
     }
 
   ngOnDestroy() {
+    this.store.dispatch(new shoppingListActions.StopEdit());
     this.subscription.unsubscribe();
   }
 }
