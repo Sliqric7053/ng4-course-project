@@ -9,7 +9,7 @@ import { AuthService } from 'app/auth/auth.service';
 import { Observable, Observer, Subject } from 'rxjs/Rx';
 import { Store } from '@ngrx/store';
 
-import * as fromShoppingList from '../../shopping-list/store/shopping-list.reducer';
+import * as fromAppStore from '../../app-store/app.reducers';
 import * as ShoppingListActions from '../../shopping-list/store/shopping-list.actions';
 
 @Component({
@@ -22,7 +22,7 @@ export class RecipeDetailComponent implements OnInit {
   id: number;
 
   constructor(
-    private store: Store<fromShoppingList.AppState>,
+    private store: Store<fromAppStore.AppState>,
     private recipeService: RecipeService,
     private route: ActivatedRoute,
     private router: Router,
