@@ -13,7 +13,7 @@
                 <li routerLinkActive="active"><a routerLink="/signin">Login</a></li>
                 <li routerLinkActive="active"><a routerLink="/signup">Register</a></li>
             </ng-template>
-            <ng-template [ngIf]="authService.isAuthenticated()">
+            <ng-template [ngIf]="(authState | async).authenticated">
                 <li routerLinkActive="active" (click)="onLogOut()"><a >Logout</a></li>
                 <li class="dropdown" appDropdown>
                     <a class="dropdown-toggle" role="button">Manage <span class="caret"></span></a>
