@@ -15,7 +15,7 @@ import { AuthModule } from './auth/auth.module';
 
 import { Recipe } from './recipes/recipe.model';
 
-import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer';
+import { AppReducers } from '../app/app-store/app.reducers';
 
 enableProdMode();
 
@@ -32,7 +32,7 @@ enableProdMode();
     ShoppingListModule,
     AuthModule,
     CoreModule,
-    StoreModule.forRoot({ shoppingList: shoppingListReducer })
+    StoreModule.forRoot({ AppReducers })
   ],
   bootstrap: [AppComponent]
 })
