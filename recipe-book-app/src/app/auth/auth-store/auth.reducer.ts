@@ -5,14 +5,14 @@ export interface State {
     authenticated: boolean;
 };
 
-export const initialState: State = {
+ const initialState: State = {
     token: null,
     authenticated: false
 };
 
 export function authReducer(state = initialState, action: AuthActions.AuthActions) {
     switch (action.type) {
-        case AuthActions.SIGN_UP:
+        case (AuthActions.SIGN_UP):
         case AuthActions.SIGN_IN:
             return {
                 ...state,
