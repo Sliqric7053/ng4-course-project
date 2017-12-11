@@ -32,7 +32,7 @@ enableProdMode();
     ShoppingListModule,
     AuthModule,
     CoreModule,
-    StoreModule.forRoot({ AppReducers })
+    StoreModule.forRoot(AppReducers)
   ],
   bootstrap: [AppComponent]
 })
