@@ -17,6 +17,9 @@ import { Recipe } from './recipes/recipe.model';
 
 import { AppReducers } from '../app/app-store/app.reducers';
 
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './auth/auth-store/auth.effects';
+
 enableProdMode();
 
 @NgModule({
@@ -32,7 +35,8 @@ enableProdMode();
     ShoppingListModule,
     AuthModule,
     CoreModule,
-    StoreModule.forRoot(AppReducers)
+    StoreModule.forRoot(AppReducers),
+    EffectsModule.forRoot([AuthEffects])
   ],
   bootstrap: [AppComponent]
 })
