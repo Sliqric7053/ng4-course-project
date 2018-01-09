@@ -1,8 +1,8 @@
 import { Action } from '@ngrx/store';
 
 export const TRY_SIGNUP = 'TRY_SIGNUP';
-export const TRY_SIGNIN = 'TRY_SIGNIN';
 export const SIGN_UP = 'SIGN_UP';
+export const TRY_SIGNIN = 'TRY_SIGNIN';
 export const SIGN_IN = 'SIGN_IN';
 export const LOG_OUT = 'LOG_OUT';
 export const SET_TOKEN = 'SET_TOKEN';
