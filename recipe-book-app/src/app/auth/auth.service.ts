@@ -10,7 +10,6 @@ import * as AuthActions from '../auth/auth-store/auth.actions';
 
 @Injectable()
 export class AuthService {
-    // token: string;
 
     constructor(
         private router: Router,
@@ -22,6 +21,13 @@ export class AuthService {
         .then(
             user => {
                 this.store.dispatch(new AuthActions.SignUp());
+                this.router.navigate(['/']);
+                firebase.auth().currentUser.getIdToken()
+                .then(
+                    (token: string) => {
+                        this.store.dispatch(new AuthActions.SetToken(token));
+                    }
+                );
             }
         )
         .catch(
@@ -53,16 +59,4 @@ export class AuthService {
             (error) => console.log(error)
         );
     }
-
-    // getToken() {
-    //     firebase.auth().currentUser.getIdToken()
-    //     .then(
-    //         (token: string) => this.token = token
-    //     );
-    //     return this.token;
-    // }
-
-    // isAuthenticated() {
-    //     return this.token != null;
-    // }
 }
