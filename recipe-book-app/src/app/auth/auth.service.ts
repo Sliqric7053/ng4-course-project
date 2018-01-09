@@ -16,24 +16,6 @@ export class AuthService {
         private store: Store<fromApp.AppState>
         ) { }
 
-    signupUser(email: string, password: string) {
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(
-            user => {
-                this.store.dispatch(new AuthActions.SignUp());
-                this.router.navigate(['/']);
-                firebase.auth().currentUser.getIdToken()
-                .then(
-                    (token: string) => {
-                        this.store.dispatch(new AuthActions.SetToken(token));
-                    }
-                );
-            }
-        )
-        .catch(
-            (error) => console.log(error)
-        );
-    }
 
     logOut() {
         firebase.auth().signOut();
@@ -41,22 +23,4 @@ export class AuthService {
         this.router.navigate(['/']);
     }
 
-    signinUser(email: string, password: string) {
-        firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(
-            (response) => {
-                this.store.dispatch(new AuthActions.SignIn());
-                this.router.navigate(['/']);
-                firebase.auth().currentUser.getIdToken()
-                .then(
-                    (token: string) => {
-                        this.store.dispatch(new AuthActions.SetToken(token));
-                    }
-                );
-            }
-        )
-        .catch(
-            (error) => console.log(error)
-        );
-    }
 }
