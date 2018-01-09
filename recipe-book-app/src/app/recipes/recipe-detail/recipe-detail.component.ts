@@ -9,8 +9,11 @@ import { AuthService } from 'app/auth/auth.service';
 import { Observable, Observer, Subject } from 'rxjs/Rx';
 import { Store } from '@ngrx/store';
 
-import * as fromAppStore from '../../app-store/app.reducers';
+import * as fromApp from '../../app-store/app.reducers';
+import * as fromAuth from '../../auth/auth-store/auth.reducer';
+
 import * as ShoppingListActions from '../../shopping-list/store/shopping-list.actions';
+import { AuthActions } from 'app/auth/auth-store/auth.actions';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -20,9 +23,10 @@ import * as ShoppingListActions from '../../shopping-list/store/shopping-list.ac
 export class RecipeDetailComponent implements OnInit {
   selectedItem: Recipe;
   id: number;
+  authState: Observable<fromAuth.State>;
 
   constructor(
-    private store: Store<fromAppStore.AppState>,
+    private store: Store<fromApp.AppState>,
     private recipeService: RecipeService,
     private route: ActivatedRoute,
     private router: Router,
@@ -36,6 +40,7 @@ export class RecipeDetailComponent implements OnInit {
         this.selectedItem = this.recipeService.getRecipe(this.id);
       }
     );
+    this.authState = this.store.select('userAuth');
   }
 
   onAddToShoppingList() {
@@ -43,11 +48,9 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onEditRecipe() {
-    if (this.authService.token != null) {
-      this.router.navigate(['edit'], {relativeTo: this.route});
-    } else {
-      window.alert('You must be signed in to edit a recipe!');
-    }
+  this.authState.take(1).subscribe((state) => {
+    state.token ? (this.router.navigate(['edit'], {relativeTo: this.route})) : (window.alert('You must be signed in to edit a recipe!'));
+    });
   }
 
   onDeleteRecipe() {

@@ -1,12 +1,15 @@
-import { Subscription } from 'rxjs/Rx';
+import { Subscription, Observable } from 'rxjs/Rx';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
 import { AuthService } from 'app/auth/auth.service';
+
 import { Store } from '@ngrx/store';
 import * as shoppingListActions from '../../shopping-list/store/shopping-list.actions';
+import * as fromApp from '../../app-store/app.reducers';
+import * as fromAuth from '../../auth/auth-store/auth.reducer';
 
 @Component({
   selector: 'app-recipe-list',
@@ -17,7 +20,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   recipes: Recipe[];
   private subscription: Subscription;
 
-  constructor(private store: Store<any>,
+  constructor(private store: Store<fromApp.AppState>,
               private recipeService: RecipeService,
               private router: Router,
               private route: ActivatedRoute,
@@ -35,11 +38,15 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   }
 
   onNewRecipe() {
-    if (this.authService.token != null) {
-      this.router.navigate(['new'], {relativeTo: this.route});
-    } else {
-      window.alert('You must be signed in to create a new recipe!');
-    }
+    let userAuth: Observable<fromAuth.State>;
+
+    userAuth = this.store.select('userAuth').do((state) => {
+      return state.authenticated;
+    });
+
+    userAuth.take(1).subscribe((state) => {
+      state.token ? this.router.navigate(['new'], {relativeTo: this.route}) : window.alert('You must be signed in to create a new recipe!')
+    });
   }
 
   ngOnDestroy() {
