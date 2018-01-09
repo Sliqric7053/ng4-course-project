@@ -5,7 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import { Recipe } from '../../recipes/recipe.model';
 
 import { DataStorageService } from '../../shared/data-storage.service';
-import { AuthService } from '../../auth/auth.service';
+
+import * as AuthActions from '../../auth/auth-store/auth.actions';
 
 import * as fromApp from 'app/app-store/app.reducers';
 import * as fromAuth from '../../auth/auth-store/auth.reducer';
@@ -19,8 +20,7 @@ export class  HeaderComponent implements OnInit {
     authState: Observable<fromAuth.State>;
 
     constructor(private dataStorageService: DataStorageService,
-                private store: Store<fromApp.AppState>,
-                public authService: AuthService) {}
+                private store: Store<fromApp.AppState>) {}
 
     ngOnInit() {
         this.authState = this.store.select('userAuth');
@@ -41,6 +41,6 @@ export class  HeaderComponent implements OnInit {
     }
 
     onLogOut() {
-        this.authService.logOut();
+        this.store.dispatch(new AuthActions.LogOut());
     }
 }
