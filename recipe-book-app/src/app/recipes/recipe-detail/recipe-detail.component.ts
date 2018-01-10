@@ -4,7 +4,6 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Recipe } from '../recipe.model';
 
 import { RecipeService } from '../recipe.service';
-import { AuthService } from 'app/auth/auth.service';
 
 import { Observable, Observer, Subject } from 'rxjs/Rx';
 import { Store } from '@ngrx/store';
@@ -29,8 +28,7 @@ export class RecipeDetailComponent implements OnInit {
     private store: Store<fromApp.AppState>,
     private recipeService: RecipeService,
     private route: ActivatedRoute,
-    private router: Router,
-    private authService: AuthService) {}
+    private router: Router) {}
 
   ngOnInit() {
     this.route.params.

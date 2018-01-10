@@ -1,4 +1,3 @@
-import { AuthService } from '../auth/auth.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpRequest } from '@angular/common/http';
 
@@ -8,11 +7,9 @@ import { Recipe } from '../recipes/recipe.model';
 @Injectable()
 export class DataStorageService {
     constructor(private httpClient: HttpClient,
-        private recipeService: RecipeService,
-        private authService: AuthService) {}
+        private recipeService: RecipeService) {}
 
     storeRecipes() {
-        // const token = this.authService.getToken();
 
         // standard "put" request (doesnt not return upload/download progress)
         // return this.httpClient.put('https://ng4-recipe-book-3d9d9.firebaseio.com/recipes.json',
@@ -30,7 +27,6 @@ export class DataStorageService {
     }
 
     fetchRecipes() {
-        // const token = this.authService.getToken();
 
          this.httpClient.get<Recipe[]>('https://ng4-recipe-book-3d9d9.firebaseio.com/recipes.json', {
             observe: 'body',

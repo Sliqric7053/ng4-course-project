@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
-import { AuthService } from 'app/auth/auth.service';
 
 import { Store } from '@ngrx/store';
 import * as shoppingListActions from '../../shopping-list/store/shopping-list.actions';
@@ -23,8 +22,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   constructor(private store: Store<fromApp.AppState>,
               private recipeService: RecipeService,
               private router: Router,
-              private route: ActivatedRoute,
-              private authService: AuthService) { }
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.subscription = this.recipeService.recipesChanged

@@ -1,7 +1,6 @@
 import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
-import { AuthService } from 'app/auth/auth.service';
 import { Injectable } from '@angular/core';
 
 import * as fromApp from '../app-store/app.reducers';
