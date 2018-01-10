@@ -62,9 +62,9 @@ export class AuthEffects {
     @Effect({dispatch: false})
     authLogOut = this.actions$
     .ofType(AuthActions.LOG_OUT)
-    .do(() => {
+    .switchMap(() => {
         this.router.navigate(['/']);
-        // return fromPromise(firebase.auth().signOut());
+        return fromPromise(firebase.auth().signOut());
     });
 
     constructor(private actions$: Actions, private router: Router) {}
