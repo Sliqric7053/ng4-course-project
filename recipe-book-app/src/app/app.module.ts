@@ -18,6 +18,8 @@ import { Recipe } from './recipes/recipe.model';
 import { AppReducers } from '../app/app-store/app.reducers';
 
 import { EffectsModule } from '@ngrx/effects';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+
 import { AuthEffects } from './auth/auth-store/auth.effects';
 
 enableProdMode();
@@ -36,7 +38,8 @@ enableProdMode();
     AuthModule,
     CoreModule,
     StoreModule.forRoot(AppReducers),
-    EffectsModule.forRoot([AuthEffects])
+    EffectsModule.forRoot([AuthEffects]),
+    StoreRouterConnectingModule
   ],
   bootstrap: [AppComponent]
 })
