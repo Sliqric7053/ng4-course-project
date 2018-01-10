@@ -8,11 +8,6 @@ import * as firebase from 'firebase';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  loadedFeature = 'recipe';
-
-  onFeatureSelected(selectedFeature: string) {
-    this.loadedFeature = selectedFeature;
-  }
 
   ngOnInit() {
     firebase.initializeApp({
