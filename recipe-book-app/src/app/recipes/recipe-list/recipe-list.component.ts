@@ -45,7 +45,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
     });
 
     userAuth.take(1).subscribe((state) => {
-      state.token ? this.router.navigate(['new'], {relativeTo: this.route}) : window.alert('You must be signed in to create a new recipe!')
+      state.token ? this.router.navigate(['new'], {relativeTo: this.route}) : window.alert('You must be signed in to create a new recipe!');
     });
   }
 
