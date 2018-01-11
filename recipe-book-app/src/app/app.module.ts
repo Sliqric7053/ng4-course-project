@@ -19,6 +19,8 @@ import { AppReducers } from '../app/app-store/app.reducers';
 
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 import { AuthEffects } from './auth/auth-store/auth.effects';
 
@@ -39,7 +41,8 @@ enableProdMode();
     CoreModule,
     StoreModule.forRoot(AppReducers),
     EffectsModule.forRoot([AuthEffects]),
-    StoreRouterConnectingModule
+    StoreRouterConnectingModule,
+    !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   bootstrap: [AppComponent]
 })
