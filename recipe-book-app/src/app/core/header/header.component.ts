@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
 
-import { Recipe } from '../../recipes/recipe.model';
+import { Store } from '@ngrx/store';
+
+import { Observable } from 'rxjs/Observable';
 
 import * as AuthActions from '../../auth/auth-store/auth.actions';
 import * as recipeActions from '../../recipes/recipes-store/recipe.actions';

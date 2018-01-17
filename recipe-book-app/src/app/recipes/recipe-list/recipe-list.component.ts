@@ -3,8 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Rx';
 
-import { Recipe } from '../recipe.model';
-
 import * as shoppingListActions from '../../shopping-list/store/shopping-list.actions';
 
 import { Store } from '@ngrx/store';
