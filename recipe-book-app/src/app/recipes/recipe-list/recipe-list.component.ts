@@ -19,22 +19,34 @@ export class RecipeListComponent implements OnInit {
   recipesState: Observable<fromRecipe.State>;
 
   constructor(private store: Store<fromRecipe.RecipesFeatureState>,
-              private router: Router,
-              private route: ActivatedRoute) { }
+    private store$: Store<fromApp.AppState>,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.recipesState = this.store.select('recipeFeature');
   }
 
   onNewRecipe() {
-    let userAuth: Observable<fromAuth.State>;
+    //   let userAuth: Observable<fromAuth.State>;
 
-    userAuth = this.store.select('userAuth').do((state) => {
-      return state.authenticated;
-    });
+    //   userAuth = this.store$.select('userAuth').do((state) => {
+    //     return state.authenticated;
+    //   });
 
-    userAuth.take(1).subscribe((state) => {
-      state.token ? this.router.navigate(['new'], {relativeTo: this.route}) : window.alert('You must be signed in to create a new recipe!');
+    //   userAuth
+    //     .take(1)
+    //     .subscribe((state) => {
+    //       state.token ?
+    //       this.router.navigate(['new'], { relativeTo: this.route }) :
+    //       window.alert('You must be signed in to create a new recipe!');
+    //     });
+    // }
+
+    this.store$.select('userAuth').subscribe(state => {
+      state.token ?
+        this.router.navigate(['new'], { relativeTo: this.route }) :
+        window.alert('You must be signed in to create a new recipe!');
     });
   }
 }
