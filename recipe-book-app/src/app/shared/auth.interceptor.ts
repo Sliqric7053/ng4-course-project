@@ -9,16 +9,17 @@ import { Store } from '@ngrx/store';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-constructor(private store: Store<fromApp.AppState>) {}
+    constructor(private store: Store<fromApp.AppState>) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         console.log('intercepted', req);
         return this.store.select('userAuth')
-        .take(1)
+            .take(1)
             .switchMap((authState: fromAuth.State) => {
                 const copiedReq = req.clone({
-                    params: req.params.set('auth', authState.token)});
-                    return next.handle(copiedReq);
+                    params: req.params.set('auth', authState.token)
+                });
+                return next.handle(copiedReq);
             });
     }
 }
