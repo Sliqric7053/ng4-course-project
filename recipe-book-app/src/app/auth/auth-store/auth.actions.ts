@@ -6,24 +6,25 @@ export const TRY_SIGNIN = 'TRY_SIGNIN';
 export const SIGN_IN = 'SIGN_IN';
 export const LOG_OUT = 'LOG_OUT';
 export const SET_TOKEN = 'SET_TOKEN';
+export const SIGN_IN_ERROR = 'SIGN_IN_ERROR';
 
 export class TrySignUp implements Action {
-    readonly type =  TRY_SIGNUP;
-    constructor(public payload: {username: string, password: string}) {}
+    readonly type = TRY_SIGNUP;
+    constructor(public payload: { username: string, password: string }) { }
 };
 
 export class TrySignIn implements Action {
-    readonly type =  TRY_SIGNIN;
-    constructor(public payload: {username: string, password: string}) {}
+    readonly type = TRY_SIGNIN;
+    constructor(public payload: { username: string, password: string }) { }
 };
 
 export class SignUp implements Action {
-    readonly type =  SIGN_UP;
+    readonly type = SIGN_UP;
 };
 
 export class SignIn implements Action {
     readonly type = SIGN_IN;
-    constructor(public payload: {username: string, password: string}) {}
+    constructor(public payload: { username: string, password: string }) { }
 };
 
 export class LogOut implements Action {
@@ -32,14 +33,20 @@ export class LogOut implements Action {
 
 export class SetToken implements Action {
     readonly type = SET_TOKEN;
-    constructor(public payload: string) {}
+    constructor(public payload: string) { }
+};
+
+export class SignInErrorAction implements Action {
+    readonly type = SIGN_IN_ERROR;
+    constructor(public payload?: any) { }
 };
 
 export type AuthActions =
-  TrySignUp
-| TrySignIn
-| SignUp
-| SignIn
-| LogOut
-| SetToken;
+    TrySignUp
+    | TrySignIn
+    | SignUp
+    | SignIn
+    | LogOut
+    | SetToken
+    | SignInErrorAction;
 
