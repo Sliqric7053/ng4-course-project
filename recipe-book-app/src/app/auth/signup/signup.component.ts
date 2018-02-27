@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { NgForm } from '@angular/forms/src/directives';
 
@@ -14,7 +15,9 @@ import * as AuthActions from '../auth-store/auth.actions';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private store: Store<fromApp.AppState>) { }
+  constructor(private store: Store<fromApp.AppState>,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
   }
@@ -22,6 +25,13 @@ export class SignupComponent implements OnInit {
   onSignUp(form: NgForm) {
     const email = form.value.email;
     const password = form.value.password;
-    this.store.dispatch(new AuthActions.TrySignUp({username: email, password: password}));
+
+    this.store.dispatch(new AuthActions.TrySignUp({ username: email, password: password }));
+
+    this.store.select('userAuth').subscribe(user => {
+      if (user.authenticated) {
+        this.router.navigate(['../'], { relativeTo: this.route });
+      }
+    });
   }
 }
