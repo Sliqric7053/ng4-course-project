@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 import * as fromRecipe from '../../recipes/recipes-store/recipe.reducers';
@@ -24,13 +24,13 @@ export class RecipeDetailComponent implements OnInit {
   constructor(
     private store: Store<fromRecipe.RecipesFeatureState>,
     private route: ActivatedRoute,
-    private router: Router) {}
+    private router: Router) { }
 
   ngOnInit() {
     this.route.params
       .subscribe(
         (params: Params) => {
-         this.id = +params['id'];
+          this.id = +params['id'];
           this.recipeState = this.store.select('recipeFeature');
         }
       );
@@ -38,28 +38,27 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onAddToShoppingList() {
-      this.recipeState
-       .take(1)
-        .subscribe((recipeState: fromRecipe.State) => {
-          this.store.dispatch(new ShoppingListActions.AddIngredients(
-            recipeState.recipes[this.id].ingredients)
-          );
-        });
+    this.store.select('recipeFeature')
+      .take(1)
+      .subscribe((recipeState: fromRecipe.State) => {
+        this.store.dispatch(new ShoppingListActions.AddIngredients(
+          recipeState.recipes[this.id].ingredients)
+        );
+      });
   }
 
   onEditRecipe() {
-  this.authState
-    .take(1)
+    this.authState
+      .take(1)
       .subscribe((state) => {
         state.token ?
-          (this.router.navigate(['edit'], {relativeTo: this.route})) :
+          (this.router.navigate(['edit'], { relativeTo: this.route })) :
           (window.alert('You must be signed in to edit a recipe!'));
-    });
+      });
   }
 
   onDeleteRecipe() {
     this.store.dispatch(new recipeActions.DeleteRecipe(this.id));
-    // this.recipeService.deleteRecipe(this.id);
-    this.router.navigate(['../'], {relativeTo: this.route});
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 }
